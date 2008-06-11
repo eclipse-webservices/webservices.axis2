@@ -81,7 +81,7 @@ public class Axis2RuntimePreferencePage extends PreferencePage implements IWorkb
 		
 		TabFolder axis2PreferenceTab = new TabFolder(mainComp, SWT.WRAP);
 		axis2PreferenceTab.setLayoutData( new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH) );
-
+		axis2PreferenceTab.setBackground(mainComp.getBackground());
 		
 		//-----------------------------Axis2 Runtime Location Group------------------------------//
 		TabItem runtimeInstalLocationItem = new TabItem(axis2PreferenceTab, SWT.WRAP);
@@ -91,7 +91,8 @@ public class Axis2RuntimePreferencePage extends PreferencePage implements IWorkb
 		Composite runtimeTab = uiUtils.createComposite(axis2PreferenceTab, 1);
 		runtimeTab.setLayoutData( new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH ) );
 		Composite runtimeGroup = uiUtils.createComposite(runtimeTab, 3);
-
+		runtimeTab.setBackground(axis2PreferenceTab.getBackground());
+		 
 		runtimeInstalLocationItem.setControl(runtimeTab);
 		runtimeTab.setToolTipText(Axis2CoreUIMessages.AXIS2_RUNTIME_TOOLTIP);
 
@@ -124,7 +125,8 @@ public class Axis2RuntimePreferencePage extends PreferencePage implements IWorkb
 		Composite codegenGroup = uiUtils.createComposite(axis2PreferenceTab, 1);
 		codegenPreferencesItem.setControl(codegenGroup);
 		codegenGroup.setToolTipText(Axis2CoreUIMessages.AXIS2_PREFERENCES_TOOLTIP);
-
+		codegenGroup.setBackground(mainComp.getBackground());
+		
 		///////////////////////////////////////////////////////////////////////////////////////////
 
 		//Service Codegen Options
