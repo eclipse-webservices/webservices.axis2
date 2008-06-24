@@ -12,6 +12,7 @@
  * 20070230   168762 sandakith@wso2.com - Lahiru Sandakith, Initial code to introduse the Axis2 
  * 										  runtime to the framework for 168762
  * 20070518   187311 sandakith@wso2.com - Lahiru Sandakith, Fixing test resource addition
+ * 20080620   192527 samindaw@wso2.com - Saminda Wijeratne, Update the model information with the axis2 preference settings
  *******************************************************************************/
 package org.eclipse.jst.ws.internal.axis2.consumption.ui.wsrt;
 
@@ -23,6 +24,7 @@ import org.eclipse.jst.ws.axis2.consumption.core.command.Axis2ClientDefaultingCo
 import org.eclipse.jst.ws.axis2.consumption.core.command.Axis2ClientTestCaseIntegrateCommand;
 import org.eclipse.jst.ws.axis2.consumption.core.command.Axis2WebservicesServerCommand;
 import org.eclipse.jst.ws.axis2.consumption.core.data.DataModel;
+import org.eclipse.jst.ws.axis2.core.context.PersistentAxis2EmitterContext;
 import org.eclipse.jst.ws.internal.axis2.consumption.ui.task.DefaultsForHTTPBasicAuthCommand;
 import org.eclipse.wst.command.internal.env.core.ICommandFactory;
 import org.eclipse.wst.command.internal.env.core.SimpleCommandFactory;
@@ -57,6 +59,7 @@ public class Axis2WebServiceClient extends AbstractWebServiceClient {
 		EclipseEnvironment environment = (EclipseEnvironment)env;
 		registerDataMappings( environment.getCommandManager().getMappingRegistry());
 		model.setWebProjectName(project);
+		setupDataModelDefaultPreferenceValues(model);
 		Vector commands = new Vector();
 		commands.add(new Axis2ClientDefaultingCommand(model,this));
 		commands.add(new Axis2WebservicesServerCommand(model, project));
@@ -65,6 +68,14 @@ public class Axis2WebServiceClient extends AbstractWebServiceClient {
 				ResourcesPlugin.getWorkspace().getRoot().getProject(project),model));
 		
 		return new SimpleCommandFactory(commands);
+	}
+	
+	public void setupDataModelDefaultPreferenceValues(DataModel model){
+		PersistentAxis2EmitterContext axis2Pref = PersistentAxis2EmitterContext.getInstance();
+		model.setASync(axis2Pref.isAsync());
+		model.setSync(axis2Pref.isSync());
+		model.setTestCaseCheck(axis2Pref.isClientTestCase());
+		model.setGenerateAllCheck(axis2Pref.isClientGenerateAll());
 	}
 
 	public ICommandFactory install(IEnvironment env, IContext ctx,
