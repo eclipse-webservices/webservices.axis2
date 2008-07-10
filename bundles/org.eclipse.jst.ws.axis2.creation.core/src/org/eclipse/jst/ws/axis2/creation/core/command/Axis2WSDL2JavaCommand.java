@@ -18,6 +18,7 @@
  * 20070814   187840 sandakith@wso2.com - Lahiru Sandakith, Fixing 187840 ITE message
  * 20070814   193593 sandakith@wso2.com - Lahiru Sandakith, custom package name fix
  * 20080213   218910 kathy@ca.ibm.com - Kathy Chan
+ * 20080621   200069 samindaw@wso2.com - Saminda Wijeratne, saving the retrieved WSDL so no need to retrieve it again
  *******************************************************************************/
 package org.eclipse.jst.ws.axis2.creation.core.command;
 
@@ -140,7 +141,7 @@ public class Axis2WSDL2JavaCommand extends AbstractDataModelOperation {
 							new Object[]{axisServiceInstance});
 		
         //set the wsdl definision for codegen config for skeleton generarion.
-        WSDLPropertyReader reader = new WSDLPropertyReader();
+        WSDLPropertyReader reader = new WSDLPropertyReader(model);
         reader.readWSDL(model.getWebProjectName(),model.getWsdlURI());
         Object wsdlDefinitionInstance = reader.getWsdlDefinitionInstance();
         //Class DefinitionClass = ClassLoadingUtil.loadClassFromAntClassLoader("javax.wsdl.Definition");
