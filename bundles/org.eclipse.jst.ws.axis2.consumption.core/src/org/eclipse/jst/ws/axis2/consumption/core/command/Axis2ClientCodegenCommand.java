@@ -20,6 +20,7 @@
  * 20070824   200515 sandakith@wso2.com - Lahiru Sandakith, NON-NLS move to seperate file
  * 20080213   218910 kathy@ca.ibm.com - Kathy Chan
  * 20080621   200069 samindaw@wso2.com - Saminda Wijeratne, saving the retrieved WSDL so no need to retrieve it again 
+ * 20080616   237363 samindaw@wso2.com - Saminda Wijeratne, get ResourceContext from environment instead of preference
  *******************************************************************************/
 package org.eclipse.jst.ws.axis2.consumption.core.command;
 
@@ -214,7 +215,7 @@ public class Axis2ClientCodegenCommand extends AbstractDataModelOperation {
 		generateMethod.invoke(CodeGenerationEngineInstance, null);
       
 		//Copy the existing codegen results to the current project
-        ContentCopyUtils contentCopyUtils = new ContentCopyUtils();
+        ContentCopyUtils contentCopyUtils = new ContentCopyUtils(getEnvironment());
 	    status = contentCopyUtils.copyDirectoryRecursivelyIntoWorkspace(
 	    							tempCodegenOutputLocation, 
 	    							currentDynamicWebProjectDir, 
